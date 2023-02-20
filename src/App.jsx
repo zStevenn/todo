@@ -1,11 +1,9 @@
-import Button from '@mui/material/Button';
+import LoginForm from './components/LoginForm';
 
 export default function App() {
   return (
     <div>
-      <Button variant="contained" color="secondary">
-        Hello World
-      </Button>
+      <LoginForm />
     </div>
   );
 }
