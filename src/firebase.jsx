@@ -1,25 +1,130 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
+  ​​  GoogleAuthProvider,
+  ​​  getAuth,
+  ​​  signInWithPopup,
+  ​​  signInWithEmailAndPassword,
+  ​​  createUserWithEmailAndPassword,
+  ​​  sendPasswordResetEmail,
+  ​​  signOut,
+  ​​} from "firebase/auth";
+import {
+  ​​  getFirestore,
+  ​​  query,
+  ​​  getDocs,
+  ​​  collection,
+  ​​  where,
+  ​​  addDoc,
+  ​​} from "firebase/firestore";
+import { getAnalytics } from 'firebase/analytics';
 
-// Firebase config
+// Your Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: 'stevens-todo-app.firebaseapp.com',
-  projectId: 'stevens-todo-app',
-  storageBucket: 'stevens-todo-app.appspot.com',
-  messagingSenderId: '159657011001',
-  appId: '1:159657011001:web:01bd42723b012b0f4b2ae8',
-  measurementId: 'G-DEN8CYNXPZ',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
-
+const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
-const auth = getAuth();
+const auth = getAuth(app);
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
+// Initialize Google Analytics
+const analytics = getAnalytics(app);
+
+// Google Authentication function
+const googleProvider = new GoogleAuthProvider();
+const signInWithGoogle = async () => {
+  try {
+    const res = await signInWithPopup(auth, googleProvider);
+    const user = res.user;
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name: user.displayName,
+        authProvider: "google",
+        email: user.email,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+// Log in with Email and Password
+const logInWithEmailAndPassword = async (email, password) => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+// Register with Email and Password
+const registerWithEmailAndPassword = async (name, email, password) => {
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+    await addDoc(collection(db, "users"), {
+      uid: user.uid,
+      name,
+      authProvider: "local",
+      email,
+    });
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+// Send password reset email
+const sendPasswordReset = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert("Password reset link sent!");
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+// Log user out
+const logout = () => {
+  signOut(auth);
+};
+
+export {
+  auth,
+  db,
+  analytics,
+  signInWithGoogle,
+  logInWithEmailAndPassword,
+  registerWithEmailAndPassword,
+  sendPasswordReset,
+  logout,
+};
+
+// try {
+//   const docRef = await addDoc(collection(db, 'users'), {
+//     first: 'Steven',
+//     last: 'Li',
+//     born: 1998,
+//   });
+
+//   console.log('Document written with ID: ', docRef.id);
+// } catch (e) {
+//   console.error('Error adding document: ', e);
+// }
+
+
