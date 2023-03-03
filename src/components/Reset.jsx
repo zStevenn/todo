@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Link from './Link';
 import { useNavigate } from 'react-router-dom';
-import { auth, sendPasswordResetEmail } from '../firebase';
+import { auth, sendPasswordReset } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import Avatar from '@mui/material/Avatar';
