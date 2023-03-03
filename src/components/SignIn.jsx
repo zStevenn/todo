@@ -63,7 +63,7 @@ export default function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isEmpty(email, password)) {
-      signInWithEmailAndPassword(email, password);
+      signInWithEmailAndPassword(auth, email, password);
     }
   };
 
