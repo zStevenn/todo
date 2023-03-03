@@ -1,4 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
+import { auth, db, logout } from './firebase';
+import { query, collection, getDocs, where } from 'firebase/firestore';
+
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -89,10 +94,32 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
+  const [user, loading, error] = useAuthState(auth);
+  const [name, setName] = useState('');
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const fetchUserName = async () => {
+    try {
+      const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
+      const doc = await getDocs(q);
+      const data = doc.docs[0].data();
+      setName(data.name);
+    } catch (err) {
+      console.error(err);
+      alert('An error occured while fetching user data');
+    }
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate('/');
+    fetchUserName();
+  }, [user, loading]);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -200,6 +227,8 @@ function DashboardContent() {
                 </Paper>
               </Grid>
             </Grid>
+            {name}
+            {user?.email}
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>

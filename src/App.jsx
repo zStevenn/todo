@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserList from './components/UserList';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import Reset from './components/Reset';
 import Dashboard from './components/Dashboard';
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<SignIn />} />
+          <Route exact path="/register" element={<SignUp />} />
+          <Route exact path="/reset" element={<Reset />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </div>
