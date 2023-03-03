@@ -29,7 +29,7 @@ function App() {
     <div className="app">
       <Router>
         <Routes>
-          <Route exact path="/" component={SignIn} />
+          <Route exact path="/" element={<SignIn />} />
         </Routes>
       </Router>
     </div>
