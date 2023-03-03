@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Link from './Link';
 import {
   auth,
@@ -46,12 +46,12 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [user, loading, error] = useAuthState(auth);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (loading) return;
-    if (user) history.replace('/dashboard');
-  }, [user, loading]);
+    if (user) navigate.replace('/dashboard');
+  }, [user, loading, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
