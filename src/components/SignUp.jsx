@@ -51,7 +51,7 @@ export default function SignUp() {
 
   useEffect(() => {
     if (loading) return;
-    if (user) navigate.replace('/dashboard');
+    if (user) navigate('/dashboard');
   }, [user, loading, navigate]);
 
   const handleSubmit = (e) => {
