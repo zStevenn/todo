@@ -3,6 +3,7 @@ import UserList from './components/UserList';
 import Register from './components/Register';
 import Login from './components/Login';
 import Loading from './components/Loading';
+import ErrorMessage from './components/ErrorMessage';
 
 function App() {
   // const [userData, setUserData] = useState([]);
@@ -28,7 +29,7 @@ function App() {
     <div className="app">
       <Router>
         <Routes>
-          <Route exact path="/" element={<Loading />} />
+          <Route exact path="/" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
         </Routes>
       </Router>
