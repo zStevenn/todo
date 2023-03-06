@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserList from './components/UserList';
 import Register from './components/Register';
 import Login from './components/Login';
+import Loading from './components/Loading';
 
 function App() {
   // const [userData, setUserData] = useState([]);
@@ -27,7 +28,7 @@ function App() {
     <div className="app">
       <Router>
         <Routes>
-          <Route exact path="/" element={<Login />} />
+          <Route exact path="/" element={<Loading />} />
           <Route exact path="/register" element={<Register />} />
         </Routes>
       </Router>
