@@ -1,10 +1,7 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserList from './components/UserList';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import Reset from './components/Reset';
-import Dashboard from './components/Dashboard';
+import Register from './components/Register';
+import Login from './components/Login';
 
 function App() {
   // const [userData, setUserData] = useState([]);
@@ -30,10 +27,8 @@ function App() {
     <div className="app">
       <Router>
         <Routes>
-          <Route exact path="/" element={<SignIn />} />
-          <Route exact path="/register" element={<SignUp />} />
-          <Route exact path="/reset" element={<Reset />} />
-          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/" element={<Login />} />
+          <Route exact path="/register" element={<Register />} />
         </Routes>
       </Router>
     </div>
