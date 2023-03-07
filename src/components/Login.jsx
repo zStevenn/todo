@@ -20,9 +20,11 @@ export default function Login() {
   if (error) {
     return <ErrorMessage message={error} />;
   }
+
   if (loading) {
     return <Loading />;
   }
+
   if (user) {
     return (
       <div>
