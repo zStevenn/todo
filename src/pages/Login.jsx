@@ -9,6 +9,7 @@ import Button from '../components/Button';
 import FormButton from '../components/FormButton';
 import { FaGoogle } from 'react-icons/fa';
 import StyledLink from '../components/StyledLink';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -16,6 +17,7 @@ export default function Login() {
   const [formError, setFormError] = useState('');
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +38,7 @@ export default function Login() {
 
     try {
       await signInWithEmailAndPassword(email, password);
+      navigate('/dashboard');
     } catch (error) {
       setFormError(error.message);
     }
@@ -44,11 +47,6 @@ export default function Login() {
   return (
     <Layout>
       {loading && <Loading />}
-      {user && (
-        <div>
-          <p>Signed In User: {user.email}</p>
-        </div>
-      )}
       {!user && (
         <form
           className="grid place-items-center gap-6 mt-16 px-6"

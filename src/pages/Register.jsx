@@ -12,6 +12,7 @@ import StyledLink from '../components/StyledLink';
 import { SiPersonio } from 'react-icons/si';
 import { FcHighPriority } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
+import { BsFillCircleFill, BsCheckCircleFill } from 'react-icons/bs';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -50,20 +51,26 @@ export default function Register() {
     <Layout>
       {loading && <Loading />}
       <div className="grid px-6 gap-6">
-        <div>[Check progress]</div>
-        <h1 className="text-xl">Maak een gratis account</h1>
+        <div className="flex gap-4 justify-center items-center pt-6">
+          <BsCheckCircleFill className="text-4xl text-orange-500" />
+          <hr className="border-b-4 w-8 border-orange-500"/>
+          <BsFillCircleFill className="text-4xl text-neutral-800" />
+          <hr className="border-b-4 w-8 border-neutral-800"/>
+          <BsFillCircleFill className="text-4xl text-neutral-800" />
+        </div>
+        <h1 className="text-xl">Create a new account</h1>
         <div className="grid grid-cols-3 gap-4">
           <div className="grid gap-1">
             <FaList className="text-4xl" />
-            <p className="text-sm">Krijg meer overzicht</p>
+            <p className="text-sm">Increase your insight</p>
           </div>
           <div className="grid gap-1">
             <SiPersonio className="text-4xl" />
-            <p className="text-sm">Verbeter je productiviteit</p>
+            <p className="text-sm">Improve your productivity</p>
           </div>
           <div className="grid gap-1">
             <FcHighPriority className="text-4xl" />
-            <p className="text-sm">Stel je prioriteiten</p>
+            <p className="text-sm">Set your priorities</p>
           </div>
         </div>
         {!user && (
