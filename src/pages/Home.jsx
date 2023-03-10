@@ -1,9 +1,33 @@
 import Layout from '../components/Layout.jsx';
+import Logo from '../assets/img/todo-mascott.png';
+import Button from '../components/Button';
+import StyledLink from '../components/StyledLink';
+import { FaFigma } from 'react-icons/fa';
+import { SiFirebase, SiReact, SiTailwindcss, SiVite } from 'react-icons/si';
 
 export default function Home() {
   return (
     <Layout>
-      <h1>Hello world!</h1>
+      <div className="px-6 grid place-items-center gap-8 my-16">
+        <img src={Logo} alt="Mascott" className="h-36" />
+        <h1 className="text-2xl text-center tracking-wide">
+          Stay ahead of your <strong className="text-primary">tasks</strong>
+          <br />
+          and increase <strong className="text-primary">productivity</strong>!
+        </h1>
+        <Button variant="secondary" text="Nu registreren" to="/register" />
+        <StyledLink to="login" >Inloggen</StyledLink>
+      </div>
+      <div className="p-6 bg-secondary text-white grid place-items-center gap-8">
+        <h2 className="text-center text-lg">Created with</h2>
+        <div className="flex flex-row gap-4 justify-center items-center">
+          <FaFigma className="text-5xl" />
+          <SiTailwindcss className="text-5xl" />
+          <SiFirebase className="text-5xl" />
+          <SiReact className="text-5xl" />
+          <SiVite className="text-5xl" />
+        </div>
+      </div>
     </Layout>
   );
 }
