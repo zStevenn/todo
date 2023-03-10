@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../firebase';
 import { MdLogin } from 'react-icons/md';
-import ErrorMessage from './ErrorMessage';
-import Loading from './Loading';
+import ErrorMessage from '../components/ErrorMessage';
+import Loading from '../components/Loading';
 
 export default function Login() {
   const [email, setEmail] = useState('');
