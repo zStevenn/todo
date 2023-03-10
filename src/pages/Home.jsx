@@ -8,17 +8,17 @@ import { SiFirebase, SiReact, SiTailwindcss, SiVite } from 'react-icons/si';
 export default function Home() {
   return (
     <Layout>
-      <div className="px-6 grid place-items-center gap-8 my-16">
+      <div className="px-6 grid place-items-center gap-6 my-16">
         <img src={Logo} alt="Mascott" className="h-36" />
         <h1 className="text-2xl text-center tracking-wide">
           Stay ahead of your <strong className="text-primary">tasks</strong>
           <br />
           and increase <strong className="text-primary">productivity</strong>!
         </h1>
-        <Button variant="secondary" text="Nu registreren" to="/register" />
-        <StyledLink to="login" >Inloggen</StyledLink>
+        <Button variant="secondary" text="Register now" to="/register" />
+        <StyledLink to="login">Log in</StyledLink>
       </div>
-      <div className="p-6 bg-secondary text-white grid place-items-center gap-8">
+      <div className="p-6 bg-secondary text-white grid place-items-center gap-6">
         <h2 className="text-center text-lg">Created with</h2>
         <div className="flex flex-row gap-4 justify-center items-center">
           <FaFigma className="text-5xl" />
