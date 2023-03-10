@@ -30,6 +30,12 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/terms-of-service" element={<h1>TOS</h1>} />
+          <Route
+            exact
+            path="/privacy-policy"
+            element={<h1>PRIVACY POLICY</h1>}
+          />
         </Routes>
       </Router>
     </div>
