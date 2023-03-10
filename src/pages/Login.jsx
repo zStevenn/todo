@@ -49,7 +49,7 @@ export default function Login() {
           <p>Signed In User: {user.email}</p>
         </div>
       )}
-      {!user && !loading && (
+      {!user && (
         <form
           className="grid place-items-center gap-6 mt-16 px-6"
           onSubmit={handleFormSubmit}

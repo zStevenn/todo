@@ -11,6 +11,7 @@ import { FaGoogle, FaList } from 'react-icons/fa';
 import StyledLink from '../components/StyledLink';
 import { SiPersonio } from 'react-icons/si';
 import { FcHighPriority } from 'react-icons/fc';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -18,6 +19,7 @@ export default function Register() {
   const [formError, setFormError] = useState('');
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -38,6 +40,7 @@ export default function Register() {
 
     try {
       await createUserWithEmailAndPassword(email, password);
+      navigate('/dashboard');
     } catch (error) {
       setFormError(error.message);
     }
@@ -63,7 +66,7 @@ export default function Register() {
             <p className="text-sm">Stel je prioriteiten</p>
           </div>
         </div>
-        {!user && !loading && (
+        {!user && (
           <form className="grid gap-6" onSubmit={handleFormSubmit}>
             <h1 className="text-xl">Register with email</h1>
             <Input

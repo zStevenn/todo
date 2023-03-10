@@ -13,6 +13,9 @@ module.exports = {
         glaucous: '#7D82B8',
         'glaucous-hover': '#9499c1',
       },
+      animation: {
+        'spin-slow': 'spin 2s linear infinite',
+      },
     },
   },
   variants: {

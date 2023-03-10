@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   // const [userData, setUserData] = useState([]);
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/register" element={<Register />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/terms-of-service" element={<h1>TOS</h1>} />
           <Route
