@@ -6,9 +6,9 @@ import {
 } from 'react-icons/md';
 import { BiTask } from 'react-icons/bi';
 import { BsGear } from 'react-icons/bs';
-import Layout from '../components/Layout.jsx';
+import Layout from '../components/Layout';
 import { useNavigate } from 'react-router-dom';
-import { logout, auth } from '../firebase.jsx';
+import { logout, auth } from '../firebase';
 import { useEffect } from 'react';
 
 export default function Dashboard() {
@@ -39,7 +39,7 @@ export default function Dashboard() {
       <div className="grid gap-8 px-6 pt-6 pb-12 text-gray-700">
         <div>
           <div className="flex justify-between">
-            <h1 className="text-xl">Hee user,</h1>
+            <h1 className="text-xl">Hee [user],</h1>
             <MdLogout className="text-3xl" onClick={handleLogout} />
           </div>
           <p className="text-base mt-2">
