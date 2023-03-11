@@ -20,7 +20,7 @@ export default function Home() {
       </div>
       <div className="p-6 bg-secondary text-white grid place-items-center gap-6">
         <h2 className="text-center text-lg">Created with</h2>
-        <div className="flex flex-row gap-4 justify-center items-center">
+        <div className="flex flex-row flex-wrap gap-4 justify-center items-center">
           <FaFigma className="text-5xl" />
           <SiTailwindcss className="text-5xl" />
           <SiFirebase className="text-5xl" />
