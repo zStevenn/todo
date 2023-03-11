@@ -1,28 +1,41 @@
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useState } from 'react';
 import { auth } from '../firebase';
-import { MdEmail, MdLock, MdLogin } from 'react-icons/md';
-import Loading from '../components/Loading';
-import Layout from '../components/Layout';
-import Input from '../components/Input';
-import Button from '../components/Button';
-import FormButton from '../components/FormButton';
-import { FaGoogle, FaList } from 'react-icons/fa';
-import StyledLink from '../components/StyledLink';
-import { SiPersonio } from 'react-icons/si';
-import { FcHighPriority } from 'react-icons/fc';
+import { Step1, Step2, Step3 } from '../components/Register';
 import { useNavigate } from 'react-router-dom';
-import { BsFillCircleFill, BsCheckCircleFill } from 'react-icons/bs';
 
 export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [formError, setFormError] = useState('');
+  const [step, setStep] = useState(1);
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const navigate = useNavigate();
 
-  const handleFormSubmit = async (e) => {
+  const nextStep = () => {
+    setStep(step + 1);
+  };
+
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+  };
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (!email) {
@@ -40,85 +53,51 @@ export default function Register() {
     }
 
     try {
+      // console.log('Submitting registration...');
       await createUserWithEmailAndPassword(email, password);
-      navigate('/dashboard');
+      // console.log('Registration submitted successfully.');
+
+      if (user) {
+        // console.log('Moving to step 2...');
+        nextStep();
+      } else {
+        // console.log('No user found.');
+        setStep(1);
+      }
     } catch (error) {
-      setFormError(error.message);
+      // console.error('Error submitting registration:', error);
+      setFormError(JSON.stringify(error.message));
     }
   };
 
+  const handlePersonalize = async (e) => {
+    // Update user profile with first name, last name, and birthday
+    // After profile update is successful, move to step 3
+    nextStep();
+  };
+
+  const handleComplete = async (e) => {
+    // Update user profile with profile picture and bio
+    // After profile update is successful, redirect to desired page
+    navigate('/dashboard');
+  };
+
   return (
-    <Layout>
-      {loading && <Loading />}
-      <div className="grid px-6 gap-6">
-        <div className="flex gap-4 justify-center items-center pt-6">
-          <BsCheckCircleFill className="text-4xl text-orange-500" />
-          <hr className="border-b-4 w-8 border-orange-500"/>
-          <BsFillCircleFill className="text-4xl text-neutral-800" />
-          <hr className="border-b-4 w-8 border-neutral-800"/>
-          <BsFillCircleFill className="text-4xl text-neutral-800" />
-        </div>
-        <h1 className="text-xl">Create a new account</h1>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="grid gap-1">
-            <FaList className="text-4xl" />
-            <p className="text-sm">Increase your insight</p>
-          </div>
-          <div className="grid gap-1">
-            <SiPersonio className="text-4xl" />
-            <p className="text-sm">Improve your productivity</p>
-          </div>
-          <div className="grid gap-1">
-            <FcHighPriority className="text-4xl" />
-            <p className="text-sm">Set your priorities</p>
-          </div>
-        </div>
-        {!user && (
-          <form className="grid gap-6" onSubmit={handleFormSubmit}>
-            <h1 className="text-xl">Register with email</h1>
-            <Input
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter Email..."
-              icon={<MdEmail />}
-            />
-            <Input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter Password..."
-              icon={<MdLock />}
-            />
-            {formError && <p className="text-secondary">{formError}</p>}
-            <FormButton
-              variant="primary"
-              text="Register"
-              type="submit"
-              icon={<MdLogin />}
-            />
-          </form>
-        )}
-        <div className="gap-6 grid">
-          <div className="flex items-center justify-center text-neutral-700 gap-4">
-            <hr className="w-20 border-neutral-700 border-1" />
-            <span className="text-sm font-semibold uppercase">or</span>
-            <hr className="w-20 border-neutral-700 border-1" />
-          </div>
-          <Button
-            variant="secondary"
-            text="Register with Google"
-            icon={<FaGoogle />}
-          />
-        </div>
-        <div>
-          <p className="text-xs">
-            Door te registreren, ga je akkoord met onze{' '}
-            <StyledLink to="/terms-of-service">Terms of Service</StyledLink> en{' '}
-            <StyledLink to="/privacy">Privacy Policy</StyledLink>.
-          </p>
-        </div>
-      </div>
-    </Layout>
+    <>
+      {step === 1 && (
+        <Step1
+          email={email}
+          password={password}
+          formError={formError}
+          loading={loading}
+          error={error}
+          handleEmailChange={handleEmailChange}
+          handlePasswordChange={handlePasswordChange}
+          onSubmit={handleRegister}
+        />
+      )}
+      {step === 2 && <Step2 user={user} />}
+      {step === 3 && <Step3 />}
+    </>
   );
 }
