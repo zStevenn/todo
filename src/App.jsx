@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import UnknownPage from './pages/404';
 
 function App() {
   // const [userData, setUserData] = useState([]);
@@ -38,6 +40,7 @@ function App() {
             path="/privacy-policy"
             element={<h1>PRIVACY POLICY</h1>}
           />
+          <Route path="*" element={<UnknownPage />} />
         </Routes>
       </Router>
     </div>
