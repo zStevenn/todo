@@ -26,10 +26,6 @@ export default function Register() {
     }
   }, []);
 
-  const nextStep = () => {
-    setStep(step + 1);
-  };
-
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
   };
@@ -89,19 +85,18 @@ export default function Register() {
     }
 
     try {
-      // console.log('Submitting registration...');
+      console.log('Submitting registration...');
       await createUserWithEmailAndPassword(email, password);
-      // console.log('Registration submitted successfully.');
+      console.log('Registration submitted successfully.');
 
-      if (user) {
-        // console.log('Moving to step 2...');
-        nextStep();
-      } else {
-        // console.log('No user found.');
-        setStep(1);
-      }
+      // Wait for the user object to be updated
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          setStep(2);
+        }
+      });
     } catch (error) {
-      // console.error('Error submitting registration:', error);
+      console.error('Error submitting registration:', error);
       setFormError(JSON.stringify(error.message));
     }
   };
@@ -109,7 +104,7 @@ export default function Register() {
   const handlePersonalize = async (e) => {
     // Update user profile with first name, last name, and birthday
     // After profile update is successful, move to step 3
-    nextStep();
+    setStep(3);
   };
 
   const handleComplete = async (e) => {

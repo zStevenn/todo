@@ -16,7 +16,7 @@ export default function Step2({
   error,
   handleFirstNameChange,
   handleLastNameChange,
-  handleBirthdateChange,
+  handleBirthDateChange,
   handleHobbyChange,
   handleInterestChange,
   onSubmit,
@@ -50,10 +50,10 @@ export default function Step2({
             placeholder="Lastname"
           />
           <Input
-            type="text"
+            type="date"
             value={birthDate}
-            onChange={handleBirthdateChange}
-            placeholder="Birthdate (DD-MM-YYYY)"
+            onChange={handleBirthDateChange}
+            placeholder="Birthdate (mm-dd-yyyy)"
           />
           <Input
             type="text"
