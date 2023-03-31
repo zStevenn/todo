@@ -15,7 +15,6 @@ export default function Step1({
   password,
   formError,
   loading,
-  user,
   error,
   handleEmailChange,
   handlePasswordChange,

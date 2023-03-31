@@ -1,5 +1,5 @@
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { auth } from '../firebase';
 import { Step1, Step2, Step3 } from '../components/Register';
 import { useNavigate } from 'react-router-dom';
@@ -9,11 +9,22 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [hobby, setHobby] = useState('');
+  const [interest, setInterest] = useState('');
+  const [photo, setPhoto] = useState('');
+  const [biography, setBiography] = useState('');
   const [formError, setFormError] = useState('');
   const [step, setStep] = useState(1);
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, []);
 
   const nextStep = () => {
     setStep(step + 1);
@@ -25,6 +36,26 @@ export default function Register() {
 
   const handleLastNameChange = (e) => {
     setLastName(e.target.value);
+  };
+
+  const handleBirthDateChange = (e) => {
+    setBirthDate(e.target.value);
+  };
+
+  const handleHobbyChange = (e) => {
+    setHobby(e.target.value);
+  };
+
+  const handleInterestChange = (e) => {
+    setInterest(e.target.value);
+  };
+
+  const handlePhotoChange = (e) => {
+    setPhoto(e.target.value);
+  };
+
+  const handleBiographyChange = (e) => {
+    setBiography(e.target.value);
   };
 
   const handleEmailChange = (e) => {
@@ -45,6 +76,11 @@ export default function Register() {
 
     if (!password) {
       setFormError('Password is required');
+      return;
+    }
+
+    if (password.length < 6) {
+      setFormError('Password requires at least 6 characters');
       return;
     }
 
@@ -84,6 +120,7 @@ export default function Register() {
 
   return (
     <>
+      {/* Register a new account */}
       {step === 1 && (
         <Step1
           email={email}
@@ -96,8 +133,38 @@ export default function Register() {
           onSubmit={handleRegister}
         />
       )}
-      {step === 2 && <Step2 user={user} />}
-      {step === 3 && <Step3 />}
+      {/* Personalize the account */}
+      {step === 2 && (
+        <Step2
+          firstName={firstName}
+          lastName={lastName}
+          birthDate={birthDate}
+          hobby={hobby}
+          interest={interest}
+          formError={formError}
+          loading={loading}
+          error={error}
+          handleFirstNameChange={handleFirstNameChange}
+          handleLastNameChange={handleLastNameChange}
+          handleBirthDateChange={handleBirthDateChange}
+          handleHobbyChange={handleHobbyChange}
+          handleInterestChange={handleInterestChange}
+          onSubmit={handlePersonalize}
+        />
+      )}
+      {/* Add profile picture and bio */}
+      {step === 3 && (
+        <Step3
+          photo={photo}
+          biography={biography}
+          formError={formError}
+          loading={loading}
+          error={error}
+          handlePhotoChange={handlePhotoChange}
+          handleBiographyChange={handleBiographyChange}
+          onSubmit={handleComplete}
+        />
+      )}
     </>
   );
 }

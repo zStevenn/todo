@@ -9,11 +9,11 @@ export default function Home() {
   return (
     <Layout>
       <div className="px-6 grid place-items-center gap-6 my-16">
-        <img src={Logo} alt="Mascott" className="h-36" />
+        <img src={Logo} alt="Mascott" className="max-h-36" />
         <h1 className="text-2xl text-center tracking-wide">
-          Stay ahead of your <strong className="text-primary">tasks</strong>
+          Stay ahead of your <strong className="text-primary">tasks</strong> and
           <br />
-          and increase <strong className="text-primary">productivity</strong>!
+          increase <strong className="text-primary">productivity</strong>!
         </h1>
         <Button variant="secondary" text="Register now" to="/register" />
         <StyledLink to="login">Log in</StyledLink>
@@ -21,12 +21,16 @@ export default function Home() {
       <div className="p-6 bg-secondary text-white grid place-items-center gap-6">
         <h2 className="text-center text-lg">Created with</h2>
         <div className="flex flex-row flex-wrap gap-4 justify-center items-center">
-          <FaFigma className="text-5xl" />
-          <SiTailwindcss className="text-5xl" />
-          <SiFirebase className="text-5xl" />
-          <SiReact className="text-5xl" />
-          <SiVite className="text-5xl" />
+          <FaFigma className="text-6xl" />
+          <SiTailwindcss className="text-6xl" />
+          <SiFirebase className="text-6xl" />
+          <SiReact className="text-6xl" />
+          <SiVite className="text-6xl" />
         </div>
+      </div>
+      <div className="p-6 grid place-items-center gap-6">
+        <h2 className="text-center text-lg">The process</h2>
+        <p>Lorem ipsum</p>
       </div>
     </Layout>
   );
