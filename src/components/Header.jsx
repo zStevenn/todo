@@ -38,7 +38,7 @@ export default function Navbar() {
       {/* Navbar */}
       <nav
         id="navbar"
-        className={`flex justify-between items-center px-8 py-3 mb-2 shadow shadow-primary z-10 bg-primary`}
+        className={`flex justify-between items-center px-8 py-3 shadow shadow-primary z-10 bg-primary`}
       >
         {/* Hamburger Icon */}
         <button

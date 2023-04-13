@@ -1,9 +1,4 @@
-import {
-  MdAdd,
-  MdList,
-  MdKeyboardDoubleArrowRight,
-  MdLogout,
-} from 'react-icons/md';
+import { MdAdd, MdList, MdKeyboardDoubleArrowRight } from 'react-icons/md';
 import { BiTask } from 'react-icons/bi';
 import { BsGear } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
@@ -34,16 +29,22 @@ export default function Dashboard() {
             In één oogopslag kan je je lijsten, taken en nog veel meer bekijken!
           </p>
         </div>
+        {/* Snelmenu */}
         <div className="grid gap-4">
           <h3 className="text-lg">Snelmenu</h3>
           <div className="grid grid-cols-4 gap-4">
             <Link
-              to="/lists"
+              to="/lists/create"
+              title="Creëer lijst"
               className="p-2 grid place-items-center bg-glaucous"
             >
               <MdAdd className="text-5xl text-white" />
             </Link>
-            <Link to="lists" className="p-2 grid place-items-center bg-melon">
+            <Link
+              to="/lists"
+              title="Bekijk lijsten"
+              className="p-2 grid place-items-center bg-melon"
+            >
               <MdList className="text-5xl text-white" />
             </Link>
             <div className="p-2 grid place-items-center bg-glaucous">
@@ -54,6 +55,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+        {/* Eind snelmenu */}
         <div className="grid gap-4">
           <h3 className="text-lg">Openstaande taken voor vandaag</h3>
           <div className="grid gap-4">
