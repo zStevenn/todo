@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import UnknownPage from './pages/404';
 import Loading from './components/Loading';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 const Register = lazy(() => import('./pages/Register'));
 const Login = lazy(() => import('./pages/Login'));
@@ -48,6 +49,7 @@ function App() {
             <Route path="*" element={<UnknownPage />} />
           </Routes>
         </Suspense>
+        <Footer />
       </Router>
     </div>
   );
