@@ -1,4 +1,3 @@
-import Layout from '../components/Layout.jsx';
 import Logo from '../assets/img/todo-mascott.png';
 import Button from '../components/Button';
 import StyledLink from '../components/StyledLink';
@@ -7,7 +6,7 @@ import { SiFirebase, SiReact, SiTailwindcss, SiVite } from 'react-icons/si';
 
 export default function Home() {
   return (
-    <Layout>
+    <>
       <div className="px-6 grid place-items-center gap-6 my-16">
         <img src={Logo} alt="Mascott" className="max-h-36" />
         <h1 className="text-2xl text-center tracking-wide">
@@ -32,6 +31,6 @@ export default function Home() {
         <h2 className="text-center text-lg">The process</h2>
         <p>Lorem ipsum</p>
       </div>
-    </Layout>
+    </>
   );
 }

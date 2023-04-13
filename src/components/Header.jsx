@@ -1,67 +1,96 @@
 import { MdMenu, MdClose } from 'react-icons/md';
 import Logo from '../assets/img/todo-mascott.png';
-import { Disclosure } from '@headlessui/react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const navigationItems = [
-  { name: 'Home', href: '/' },
-  { name: 'Registreren', href: '/register' },
-];
+export default function Navbar() {
+  const [showNav, setShowNav] = useState(true);
 
-export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+  // Array of nav items with id and name.
+  const navElements = [
+    { name: 'Home', href: '/' },
+    { name: 'Registreren', href: '/register' },
+    { name: 'Log in', href: '/login' },
+    { name: 'Dashboard', href: '/dashboard' },
+  ];
+
+  // Toggles Navigation based on click
+  const toggleNav = () => {
+    setShowNav(!showNav);
+  };
 
   return (
-    <Disclosure
-      as="nav"
-      className="bg-primary text-white relative lg:flex lg:justify-between lg:items-center"
-    >
-      {({ open }) => (
-        <>
-          <div className="flex justify-between items-center lg:flex-1 px-6 py-3">
-            <Disclosure.Button
-              className="lg:hidden"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? (
-                <MdClose className="text-4xl" />
-              ) : (
-                <MdMenu className="text-4xl" />
-              )}
-            </Disclosure.Button>
-
-            <Link to="/">
-              <div className="flex justify-center items-center gap-1">
-                <p className="text-sm">
-                  Steven's
-                  <br />
-                  To-Do
-                </p>
-                <img src={Logo} alt="Todo Mascott" className="max-h-10" />
-              </div>
-            </Link>
+    <>
+      {/* Navbar */}
+      <nav
+        id="navbar"
+        className={`flex justify-between items-center px-8 py-3 mb-2 shadow shadow-primary z-10 bg-primary`}
+      >
+        {/* Hamburger Icon */}
+        <button
+          onClick={toggleNav}
+          className="md:hidden text-neutral-100 cursor-pointer text-3xl transition-all duration-300"
+        >
+          <MdMenu />
+        </button>
+        {/* Webpage Title */}
+        <Link to="/">
+          <div className="flex justify-center items-center gap-1">
+            <h1 className="text-neutral-100 text-sm flex flex-nowrap gap-2 items-center">
+              Steven's
+              <br />
+              To-Do
+            </h1>
+            <img src={Logo} alt="Todo Mascott" className="max-h-10" />
           </div>
-          <Disclosure.Panel
-            className={`lg:flex lg:items-center lg:justify-end lg:flex-1 lg:px-6 lg:py-3 absolute top-full left-0 w-full bg-primary z-10 transition-all duration-300 transform ${
-              open ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
-            }`}
+        </Link>
+        {/* Navlist */}
+        <ul className="hidden md:flex gap-8 text-neutral-100 text-lg">
+          {navElements.map(({ id, name, href }) => (
+            <li key={id}>
+              <Link to={href} className="cursor-pointer" onClick={toggleNav}>
+                {name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div
+        className={`md:hidden text-neutral-100 px-8 py-3 fixed w-screen h-screen top-0 bg-primary z-20 shadow-lg transition-all duration-500 ${
+          showNav ? '-translate-x-full' : 'translate-x-0'
+        }  `}
+      >
+        <div className="flex flex-row justify-between">
+          {/* Hamburger Icon */}
+          <button
+            onClick={toggleNav}
+            className="md:hidden text-neutral-100 cursor-pointer text-3xl transition-all duration-300"
           >
-            <div className="px-4 py-2 space-y-1">
-              {navigationItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700"
-                >
-                  {item.name}
-                </Link>
-              ))}
+            <MdClose />
+          </button>
+          {/* Webpage Title */}
+          <Link to="/">
+            <div className="flex justify-center items-center gap-1">
+              <h1 className="text-neutral-100 text-sm flex flex-nowrap gap-2 items-center">
+                Steven's
+                <br />
+                To-Do
+              </h1>
+              <img src={Logo} alt="Todo Mascott" className="max-h-10" />
             </div>
-            <div></div>
-          </Disclosure.Panel>
-        </>
-      )}
-    </Disclosure>
+          </Link>
+        </div>
+        <ul className="grid gap-4 my-4 text-xl text-neutral-100">
+          {navElements.map(({ id, name, href }) => (
+            <li key={id}>
+              <Link to={href} className="cursor-pointer" onClick={toggleNav}>
+                {name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {/* Einde Navbar */}
+    </>
   );
 }

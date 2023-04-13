@@ -3,6 +3,7 @@ import { Suspense, lazy } from 'react';
 import Home from './pages/Home';
 import UnknownPage from './pages/404';
 import Loading from './components/Loading';
+import Header from './components/Header';
 
 const Register = lazy(() => import('./pages/Register'));
 const Login = lazy(() => import('./pages/Login'));
@@ -31,6 +32,7 @@ function App() {
   return (
     <div className="app">
       <Router>
+        <Header />
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route exact path="/" element={<Home />} />

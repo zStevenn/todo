@@ -6,7 +6,6 @@ import {
 } from 'react-icons/md';
 import { BiTask } from 'react-icons/bi';
 import { BsGear } from 'react-icons/bs';
-import Layout from '../components/Layout';
 import { useNavigate } from 'react-router-dom';
 import { logout, auth } from '../firebase';
 import { useEffect } from 'react';
@@ -35,7 +34,7 @@ export default function Dashboard() {
   };
 
   return (
-    <Layout>
+    <>
       <div className="grid gap-8 px-6 pt-6 pb-12 text-gray-700">
         <div>
           <div className="flex justify-between">
@@ -106,6 +105,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   );
 }

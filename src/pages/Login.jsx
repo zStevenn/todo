@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { auth } from '../firebase';
 import { MdEmail, MdLock, MdLogin } from 'react-icons/md';
 import Loading from '../components/Loading';
-import Layout from '../components/Layout';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import FormButton from '../components/FormButton';
@@ -45,7 +44,7 @@ export default function Login() {
   };
 
   return (
-    <Layout>
+    <>
       {loading && <Loading />}
       {!user && (
         <form
@@ -96,6 +95,6 @@ export default function Login() {
           </StyledLink>
         </div>
       </div>
-    </Layout>
+    </>
   );
 }

@@ -1,6 +1,5 @@
 import { MdEmail, MdLock, MdLogin } from 'react-icons/md';
 import Loading from '../Loading';
-import Layout from '../Layout';
 import Input from '../Input';
 import Button from '../Button';
 import FormButton from '../FormButton';
@@ -21,7 +20,7 @@ export default function Step1({
   onSubmit,
 }) {
   return (
-    <Layout>
+    <>
       {loading && <Loading />}
       <div className="grid px-6 gap-6">
         <div className="flex gap-4 justify-center items-center pt-6">
@@ -91,6 +90,6 @@ export default function Step1({
           </p>
         </div>
       </div>
-    </Layout>
+    </>
   );
 }

@@ -1,5 +1,4 @@
 import Loading from '../Loading';
-import Layout from '../Layout';
 import Input from '../Input';
 import FormButton from '../FormButton';
 import StyledLink from '../StyledLink';
@@ -22,7 +21,7 @@ export default function Step2({
   onSubmit,
 }) {
   return (
-    <Layout>
+    <>
       {loading && <Loading />}
       <div className="grid px-6 gap-6">
         <div className="flex gap-4 justify-center items-center pt-6">
@@ -75,6 +74,6 @@ export default function Step2({
           Personalize later
         </StyledLink>
       </div>
-    </Layout>
+    </>
   );
 }
