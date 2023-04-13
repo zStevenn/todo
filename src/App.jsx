@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 const Register = lazy(() => import('./pages/Register'));
 const Login = lazy(() => import('./pages/Login'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
+const ListOverview = lazy(() => import('./pages/ListOverview'));
 
 function App() {
   // const [userData, setUserData] = useState([]);
@@ -40,6 +41,7 @@ function App() {
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/lists" element={<ListOverview />} />
             <Route exact path="/terms-of-service" element={<h1>TOS</h1>} />
             <Route
               exact

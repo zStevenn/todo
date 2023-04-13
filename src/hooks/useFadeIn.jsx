@@ -14,7 +14,7 @@ export default function useFadeIn() {
           }
         });
       },
-      { threshold: [0.35] }
+      { threshold: [0.5] }
     );
     observer.observe(fadeRef);
 

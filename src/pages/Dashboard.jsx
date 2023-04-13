@@ -7,8 +7,9 @@ import {
 import { BiTask } from 'react-icons/bi';
 import { BsGear } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-import { logout, auth } from '../firebase';
+import { auth } from '../firebase';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -22,24 +23,12 @@ export default function Dashboard() {
     return unsubscribe;
   }, [navigate]);
 
-  const handleLogout = async (e) => {
-    e.preventDefault();
-
-    try {
-      await logout();
-      navigate('/');
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   return (
     <>
       <div className="grid gap-8 px-6 pt-6 pb-12 text-gray-700">
         <div>
           <div className="flex justify-between">
-            <h1 className="text-xl">Hee [user],</h1>
-            <MdLogout className="text-3xl" onClick={handleLogout} />
+            <h1 className="text-xl">Hee,</h1>
           </div>
           <p className="text-base mt-2">
             In één oogopslag kan je je lijsten, taken en nog veel meer bekijken!
@@ -48,12 +37,15 @@ export default function Dashboard() {
         <div className="grid gap-4">
           <h3 className="text-lg">Snelmenu</h3>
           <div className="grid grid-cols-4 gap-4">
-            <div className="p-2 grid place-items-center bg-glaucous">
+            <Link
+              to="/lists"
+              className="p-2 grid place-items-center bg-glaucous"
+            >
               <MdAdd className="text-5xl text-white" />
-            </div>
-            <div className="p-2 grid place-items-center bg-melon">
+            </Link>
+            <Link to="lists" className="p-2 grid place-items-center bg-melon">
               <MdList className="text-5xl text-white" />
-            </div>
+            </Link>
             <div className="p-2 grid place-items-center bg-glaucous">
               <BiTask className="text-5xl text-white" />
             </div>
