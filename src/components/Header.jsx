@@ -29,7 +29,7 @@ export default function Navbar() {
         {/* Hamburger Icon */}
         <button
           onClick={toggleNav}
-          className="md:hidden text-neutral-100 cursor-pointer text-3xl transition-all duration-300"
+          className="md:hidden text-neutral-100 cursor-pointer text-3xl"
         >
           <MdMenu />
         </button>
@@ -56,7 +56,7 @@ export default function Navbar() {
         </ul>
       </nav>
       <div
-        className={`md:hidden text-neutral-100 px-8 py-3 fixed w-screen h-screen top-0 bg-primary z-20 shadow-lg transition-all duration-500 ${
+        className={`md:hidden text-neutral-100 px-8 py-3 fixed w-screen h-screen top-0 bg-primary z-20 shadow-lg transition-all duration-700 ${
           showNav ? '-translate-x-full' : 'translate-x-0'
         }  `}
       >
