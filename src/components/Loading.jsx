@@ -2,9 +2,8 @@ import { RiLoaderFill } from 'react-icons/ri';
 
 export default function Loading() {
   return (
-    <div className="h-screen w-screen grid place-content-center place-items-center">
-      <RiLoaderFill className="text-6xl animate-spin-slow text-gray-700" />
-      <h1 className="text-gray-700">Een moment geduld...</h1>
+    <div className="flex flex-col justify-center items-center bg-neutral-900/30 z-[900] h-screen w-screen absolute inset-0">
+      <RiLoaderFill className="text-6xl animate-spin-slow text-neutral-800" />
     </div>
   );
 }

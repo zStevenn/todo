@@ -26,7 +26,7 @@ export default function Alert({ title, status, message, errorStatus }) {
 
   return (
     // Backdrop
-    <div className="flex flex-col justify-center items-center bg-neutral-900/30 z-[900] h-screen w-screen absolute">
+    <div className="flex flex-col justify-center items-center bg-neutral-900/30 z-[900] h-screen w-screen absolute inset-0">
       {/* Alert */}
       <div
         className={`transition-all duration-300 bg-neutral-100 rounded-md border-b-8 p-8 mx-8 text-neutral-900 flex flex-col gap-4 justify-center items-center ${

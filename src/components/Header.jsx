@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { auth, logout } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Alert from './Alert';
+import Loading from './Loading';
 
 export default function Navbar() {
   const [showNav, setShowNav] = useState(true);
@@ -17,10 +18,10 @@ export default function Navbar() {
 
   // Array of nav items with id and name.
   const navElements = [
-    { name: 'Home', href: '/' },
-    { name: 'Registreren', href: '/register' },
-    { name: 'Log in', href: '/login' },
-    { name: 'Dashboard', href: '/dashboard' },
+    { id: 1, name: 'Home', href: '/' },
+    { id: 2, name: 'Registreren', href: '/register' },
+    { id: 3, name: 'Log in', href: '/login' },
+    { id: 4, name: 'Dashboard', href: '/dashboard' },
   ];
 
   // Toggles Navigation based on click
@@ -37,10 +38,10 @@ export default function Navbar() {
       setPopupStatus('success');
       setPopupMessage('Je bent succesvol uitgelogd.');
       setPopup(true);
-      navigate('/');
       setTimeout(() => {
+        navigate('/');
         setPopup(false);
-      }, 5000);
+      }, 3000);
     } catch (error) {
       console.log(error.message);
     }
@@ -52,6 +53,7 @@ export default function Navbar() {
       {popup && (
         <Alert title={popupTitle} status={popupStatus} message={popupMessage} />
       )}
+      {loading && <Loading />}
       <nav
         id="navbar"
         className={`flex justify-between items-center px-8 py-3 shadow shadow-primary z-10 bg-primary`}
