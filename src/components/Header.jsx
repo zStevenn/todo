@@ -1,14 +1,19 @@
 import { MdMenu, MdClose, MdLogout } from 'react-icons/md';
 import Logo from '../assets/img/todo-mascott.png';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { auth } from '../firebase';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth, logout } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { handleLogout } from '../hooks/useLogout';
+import Alert from './Alert';
 
 export default function Navbar() {
   const [showNav, setShowNav] = useState(true);
   const [user, loading, error] = useAuthState(auth);
+  const [popup, setPopup] = useState(false);
+  const [popupTitle, setPopupTitle] = useState('');
+  const [popupStatus, setPopupStatus] = useState('');
+  const [popupMessage, setPopupMessage] = useState('');
+  const navigate = useNavigate();
 
   // Array of nav items with id and name.
   const navElements = [
@@ -23,9 +28,30 @@ export default function Navbar() {
     setShowNav(!showNav);
   };
 
+  const handleLogout = async (e) => {
+    e.preventDefault;
+
+    try {
+      await logout();
+      setPopupTitle('Tot ziens!');
+      setPopupStatus('success');
+      setPopupMessage('Je bent succesvol uitgelogd.');
+      setPopup(true);
+      navigate('/');
+      setTimeout(() => {
+        setPopup(false);
+      }, 5000);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <>
       {/* Navbar */}
+      {popup && (
+        <Alert title={popupTitle} status={popupStatus} message={popupMessage} />
+      )}
       <nav
         id="navbar"
         className={`flex justify-between items-center px-8 py-3 shadow shadow-primary z-10 bg-primary`}

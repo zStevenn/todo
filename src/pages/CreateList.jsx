@@ -30,26 +30,23 @@ export default function Add() {
     setTag(e.target.value);
   };
 
-  const handleDismissPopup = () => {
-    setPopup(false);
-  };
-
   const createList = () => {
-    setPopupTitle('Title');
-    setPopupStatus('danger');
-    setPopupMessage('Popup bericht inhoud blabla xx');
+    // Create Firebase collection logic
+
+    // Display Popup logic with Alert
+    setPopupTitle('Tot ziens!');
+    setPopupStatus('success');
+    setPopupMessage('Je bent successvol uitgelogd.');
     setPopup(true);
+    setTimeout(() => {
+      setPopup(false); // set the showAlert state back to false after 5 seconds
+    }, 5000);
   };
 
   return (
     <>
       {popup && (
-        <Alert
-          title={popupTitle}
-          status={popupStatus}
-          message={popupMessage}
-          handleClick={handleDismissPopup}
-        />
+        <Alert title={popupTitle} status={popupStatus} message={popupMessage} />
       )}
       <div
         ref={addRef}
