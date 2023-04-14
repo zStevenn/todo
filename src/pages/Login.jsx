@@ -93,7 +93,7 @@ export default function Login() {
           icon={<MdLogin />}
         />
       </form>
-      {/* <div className="px-6 mt-6 gap-6 grid">
+      <div className="px-6 mt-6 gap-6 grid">
         <div className="flex items-center justify-center text-neutral-700 gap-4">
           <hr className="w-20 border-neutral-700 border-1" />
           <span className="text-sm font-semibold uppercase">or</span>
@@ -112,7 +112,7 @@ export default function Login() {
             Geen account? Registreer hier
           </StyledLink>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }
