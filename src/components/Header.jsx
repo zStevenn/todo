@@ -38,6 +38,7 @@ export default function Navbar() {
       setPopupStatus('success');
       setPopupMessage('Je bent succesvol uitgelogd.');
       setPopup(true);
+      setShowNav(!showNav);
       setTimeout(() => {
         navigate('/');
         setPopup(false);
