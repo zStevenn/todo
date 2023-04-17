@@ -86,6 +86,7 @@ export default function Login() {
           icon={<MdLock />}
         />
         {formError && <p className="text-secondary">{formError}</p>}
+        {error && <p className="text-secondary">{error.message}</p>}
         <FormButton
           variant="primary"
           text="Inloggen"
