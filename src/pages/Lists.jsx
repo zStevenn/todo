@@ -1,8 +1,13 @@
 import Button from '../components/Button';
 import { MdEdit, MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { collection } from 'firebase/firestore';
+import { db } from '../firebase';
+import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 
 export default function Lists() {
+  const [value, loading, error] = useCollectionOnce(collection(db, 'lists'));
+
   const deleteList = () => {
     console.log('delete list');
   };
@@ -12,11 +17,11 @@ export default function Lists() {
       {/* Header + Create button */}
       <div className="flex flex-row flex-nowrap justify-between items-center px-8 py-3">
         <h1 className="text-neutral-900">List overview</h1>
-        <Button text="Create list" variant="melon" to="/lists/add" />
+        <Button text="Create list" variant="melon" to="/lists/create" />
       </div>
 
       {/* List grid */}
-      <table className="table-auto mx-8 py-3 text-neutral-900">
+      <table className="table-auto w-full md:px-8 py-3 text-neutral-900">
         {/* Grid Header */}
         <thead>
           <tr className="grid grid-cols-4 place-items-start px-2 gap-6">
@@ -28,96 +33,40 @@ export default function Lists() {
         </thead>
         {/* Grid rows */}
         <tbody>
-          <tr className="grid grid-cols-4 px-2 gap-6 border-b-2">
-            <td className="truncate">
-              Lorem ips pawepjg ijpwaeg ijpawiejg paijwepg oajweg{' '}
-            </td>
-            <td className="truncate">26-3-2023</td>
-            <td className="truncate">awega</td>
-            <td className="flex gap-4 items-center">
-              <Link to="/lists/{id}">
-                <MdEdit />
-              </Link>
-              <button onClick={deleteList}>
-                <MdDelete />
-              </button>
-            </td>
-          </tr>
-          <tr className="grid grid-cols-4 px-2 gap-6 border-b-2">
-            <td className="truncate">
-              Lorem ips pawepjg ijpwaeg ijpawiejg paijwepg oajweg{' '}
-            </td>
-            <td className="truncate">26-3-2023</td>
-            <td className="truncate">awega</td>
-            <td className="flex gap-4 items-center">
-              <Link to="/lists/{id}">
-                <MdEdit />
-              </Link>
-              <button onClick={deleteList}>
-                <MdDelete />
-              </button>
-            </td>
-          </tr>
-          <tr className="grid grid-cols-4 px-2 gap-6 border-b-2">
-            <td className="truncate">
-              Lorem ips pawepjg ijpwaeg ijpawiejg paijwepg oajweg{' '}
-            </td>
-            <td className="truncate">26-3-2023</td>
-            <td className="truncate">awega</td>
-            <td className="flex gap-4 items-center">
-              <Link to="/lists/{id}">
-                <MdEdit />
-              </Link>
-              <button onClick={deleteList}>
-                <MdDelete />
-              </button>
-            </td>
-          </tr>
-          <tr className="grid grid-cols-4 px-2 gap-6 border-b-2">
-            <td className="truncate">
-              Lorem ips pawepjg ijpwaeg ijpawiejg paijwepg oajweg{' '}
-            </td>
-            <td className="truncate">26-3-2023</td>
-            <td className="truncate">awega</td>
-            <td className="flex gap-4 items-center">
-              <Link to="/lists/{id}">
-                <MdEdit />
-              </Link>
-              <button onClick={deleteList}>
-                <MdDelete />
-              </button>
-            </td>
-          </tr>
-          <tr className="grid grid-cols-4 px-2 gap-6 border-b-2">
-            <td className="truncate">
-              Lorem ips pawepjg ijpwaeg ijpawiejg paijwepg oajweg{' '}
-            </td>
-            <td className="truncate">26-3-2023</td>
-            <td className="truncate">awega</td>
-            <td className="flex gap-4 items-center">
-              <Link to="/lists/{id}">
-                <MdEdit />
-              </Link>
-              <button onClick={deleteList}>
-                <MdDelete />
-              </button>
-            </td>
-          </tr>
-          <tr className="grid grid-cols-4 px-2 gap-6 border-b-2">
-            <td className="truncate">
-              Lorem ips pawepjg ijpwaeg ijpawiejg paijwepg oajweg{' '}
-            </td>
-            <td className="truncate">26-3-2023</td>
-            <td className="truncate">awega</td>
-            <td className="flex gap-4 items-center">
-              <Link to="/lists/{id}">
-                <MdEdit />
-              </Link>
-              <button onClick={deleteList}>
-                <MdDelete />
-              </button>
-            </td>
-          </tr>
+          {error && (
+            <tr>
+              <td>Error: {JSON.stringify(error)}</td>
+            </tr>
+          )}
+          {loading && (
+            <tr>
+              <td>Collection: Loading...</td>
+            </tr>
+          )}
+          {value && (
+            <>
+              {value.docs.map((doc) => (
+                <tr
+                  key={doc.id}
+                  className="grid grid-cols-4 px-2 py-2 gap-6 border-b-2"
+                >
+                  <td className="truncate">{doc.data().name}</td>
+                  <td className="truncate">{doc.data().date}</td>
+                  <td className="truncate">
+                    {JSON.stringify(doc.data().tags)}
+                  </td>
+                  <td className="flex gap-4 items-center">
+                    <Link to={`/lists/${doc.id}`}>
+                      <MdEdit />
+                    </Link>
+                    <button onClick={deleteList}>
+                      <MdDelete />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </>
+          )}
         </tbody>
       </table>
     </>

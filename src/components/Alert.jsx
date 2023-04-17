@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import { MdCheckCircle, MdDangerous, MdClose } from 'react-icons/md';
 
-export default function Alert({ title, status, message, errorStatus }) {
+export default function Alert({
+  title,
+  status,
+  message,
+  errorStatus,
+  redir = false,
+}) {
   const [visible, setVisible] = useState(true);
   const [progress, setProgress] = useState(100);
 
@@ -88,7 +94,9 @@ export default function Alert({ title, status, message, errorStatus }) {
         </div> */}
 
         {/* Small text notifying automatic redirect */}
-        <p className="text-neutral-400 text-sm">Automatisch doorsturen...</p>
+        {redir && (
+          <p className="text-neutral-400 text-sm">Automatisch doorsturen...</p>
+        )}
       </div>
     </div>
   );
