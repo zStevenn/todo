@@ -78,7 +78,11 @@ export default function Navbar() {
           </div>
         </Link>
         {user && (
-          <button onClick={handleLogout} title="Uitloggen">
+          <button
+            onClick={handleLogout}
+            title="Uitloggen"
+            className="hidden md:block"
+          >
             <MdLogout className="text-3xl text-neutral-100" />
           </button>
         )}
@@ -94,7 +98,7 @@ export default function Navbar() {
         </ul>
       </nav>
       <div
-        className={`md:hidden text-neutral-100 px-8 py-3 fixed w-screen h-screen top-0 left-0 bg-primary z-20 shadow-lg transition-all ease-in duration-500 rounded-br-full ${
+        className={`md:hidden text-neutral-100 px-8 py-3 fixed w-screen h-screen top-0 left-0 bg-primary z-20 shadow-lg transition-all ease-in duration-500 rounded-br-full flex flex-col gap-16 ${
           showNav
             ? '-translate-x-full -translate-y-full'
             : 'translate-x-0 translate-y-0 left-none'
@@ -120,7 +124,7 @@ export default function Navbar() {
             <MdClose />
           </button>
         </div>
-        <ul className="grid gap-4 mt-10 text-xl text-neutral-100">
+        <ul className="grid gap-4 text-xl text-neutral-100">
           {navElements.map(({ id, name, href }) => (
             <li key={id}>
               <Link to={href} className="cursor-pointer" onClick={toggleNav}>
@@ -129,6 +133,15 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
+        {user && (
+          <button
+            onClick={handleLogout}
+            title="Uitloggen"
+            className="w-fit flex flex-row justify-center items-center bg-melon hover:bg-melon-hover text-white rounded-md px-4 py-2 cursor-pointer transition-colors duration-300"
+          >
+            <MdLogout className="text-2xl text-neutral-100" /> Uitloggen
+          </button>
+        )}
       </div>
       {/* Einde Navbar */}
     </>
