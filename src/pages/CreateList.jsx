@@ -100,7 +100,7 @@ export default function Add() {
       )}
       <div
         ref={addRef}
-        className="px-8 transition-all duration-1000 opacity-0 -translate-x-32 shadow-[15px_-1px_5px_-5px_rgba(0,0,0,0.3)] grid gap-8"
+        className="px-8 transition-all duration-1000 opacity-0 -translate-x-32 shadow-[15px_-1px_5px_-5px_rgba(0,0,0,0.3)] flex flex-col flex-start gap-8 h-[80vh]"
       >
         <h1 className="text-2xl font-semibold text-neutral-900 pt-8">
           Maak nieuwe lijst
