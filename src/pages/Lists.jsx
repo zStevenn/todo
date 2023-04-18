@@ -8,9 +8,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 export default function Lists() {
   const [user, userLoading, userError] = useAuthState(auth);
-  const listsRef = collection(db, 'lists');
-  const userListQuery = query(listsRef, where('userUID', '==', user.uid));
-  const [value, loading, error] = useCollection(userListQuery);
   // const navigate = useNavigate();
 
   const deleteList = () => {
@@ -21,7 +18,9 @@ export default function Lists() {
     return <p>User is not logged in!</p>;
   }
 
-  console.log(user.uid);
+  const listsRef = collection(db, 'lists');
+  const userListQuery = query(listsRef, where('userUID', '==', user.uid));
+  const [value, loading, error] = useCollection(userListQuery);
 
   return (
     <>
