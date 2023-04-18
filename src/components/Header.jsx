@@ -1,4 +1,4 @@
-import { MdMenu, MdClose, MdLogout } from 'react-icons/md';
+import { MdMenu, MdClose, MdLogout, MdPerson } from 'react-icons/md';
 import Logo from '../assets/img/todo-mascott.png';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -16,11 +16,16 @@ export default function Navbar() {
   const [popupMessage, setPopupMessage] = useState('');
   const navigate = useNavigate();
 
-  // Array of nav items with id and name.
+  // Default nav items
   const navElements = [
     { id: 1, name: 'Home', href: '/' },
     { id: 2, name: 'Registreren', href: '/register' },
     { id: 3, name: 'Log in', href: '/login' },
+  ];
+
+  // Nav items when user is logged in
+  const userNavElements = [
+    { id: 1, name: 'Home', href: '/' },
     { id: 4, name: 'Dashboard', href: '/dashboard' },
   ];
 
@@ -78,35 +83,54 @@ export default function Navbar() {
             <img src={Logo} alt="Todo Mascott" className="max-h-10" />
           </div>
         </Link>
-        {user && (
-          <button
-            onClick={handleLogout}
-            title="Uitloggen"
-            className="hidden md:block"
-          >
-            <MdLogout className="text-3xl text-neutral-100" />
-          </button>
-        )}
         {/* Navlist */}
         <ul className="hidden md:flex gap-8 text-neutral-100 text-lg">
-          {navElements.map(({ id, name, href }) => (
-            <li key={id}>
-              <Link to={href} className="cursor-pointer" onClick={toggleNav}>
-                {name}
-              </Link>
-            </li>
-          ))}
+          {!user &&
+            navElements.map(({ id, name, href }) => (
+              <li key={id}>
+                <Link to={href} className="cursor-pointer" onClick={toggleNav}>
+                  {name}
+                </Link>
+              </li>
+            ))}
+          {user &&
+            userNavElements.map(({ id, name, href }) => (
+              <li key={id}>
+                <Link to={href} className="cursor-pointer" onClick={toggleNav}>
+                  {name}
+                </Link>
+              </li>
+            ))}
         </ul>
+        {user && (
+          <div className="flex gap-4">
+            <Link to="/dashboard" title="Profiel" className="hidden md:block">
+              <MdPerson className="text-3xl text-neutral-100" />
+            </Link>
+            <button
+              onClick={handleLogout}
+              title="Uitloggen"
+              className="hidden md:block"
+            >
+              <MdLogout className="text-3xl text-neutral-100" />
+            </button>
+          </div>
+        )}
       </nav>
       <div
-        className={`md:hidden text-neutral-100 px-8 py-3 fixed w-screen h-screen top-0 left-0 bg-primary z-20 shadow-lg transition-all ease-in duration-500 rounded-br-full flex flex-col gap-16 ${
+        className={`md:hidden text-neutral-100 px-8 py-3 fixed w-screen h-3/5 top-0 left-0 bg-primary z-20 shadow-lg transition-all ease-in duration-500 rounded-br-full flex flex-col gap-16 ${
           showNav
             ? '-translate-x-full -translate-y-full'
             : 'translate-x-0 translate-y-0 left-none'
         }  `}
       >
         <div className="flex flex-row justify-between">
-          {/* Webpage Title */}
+          <button
+            onClick={toggleNav}
+            className="md:hidden text-neutral-100 cursor-pointer text-3xl transition-all duration-300"
+          >
+            <MdClose />
+          </button>
           <Link to="/" title="Steven's To-Do">
             <div className="flex justify-center items-center gap-1 cursor-pointer">
               <h1 className="text-neutral-100 text-sm flex flex-nowrap gap-2 items-center">
@@ -117,31 +141,43 @@ export default function Navbar() {
               <img src={Logo} alt="Todo Mascott" className="max-h-10" />
             </div>
           </Link>
-          {/* Hamburger Icon */}
-          <button
-            onClick={toggleNav}
-            className="md:hidden text-neutral-100 cursor-pointer text-3xl transition-all duration-300"
-          >
-            <MdClose />
-          </button>
         </div>
         <ul className="grid gap-4 text-xl text-neutral-100">
-          {navElements.map(({ id, name, href }) => (
-            <li key={id}>
-              <Link to={href} className="cursor-pointer" onClick={toggleNav}>
-                {name}
-              </Link>
-            </li>
-          ))}
+          {!user &&
+            navElements.map(({ id, name, href }) => (
+              <li key={id}>
+                <Link to={href} className="cursor-pointer" onClick={toggleNav}>
+                  {name}
+                </Link>
+              </li>
+            ))}
+          {user &&
+            userNavElements.map(({ id, name, href }) => (
+              <li key={id}>
+                <Link to={href} className="cursor-pointer" onClick={toggleNav}>
+                  {name}
+                </Link>
+              </li>
+            ))}
         </ul>
         {user && (
-          <button
-            onClick={handleLogout}
-            title="Uitloggen"
-            className="w-fit flex flex-row justify-center items-center bg-melon hover:bg-melon-hover text-white rounded-md px-4 py-2 cursor-pointer transition-colors duration-300"
-          >
-            <MdLogout className="text-2xl text-neutral-100" /> Uitloggen
-          </button>
+          <div className="flex gap-4">
+            <Link
+              to="/profiel"
+              title="Uitloggen"
+              className="w-fit flex flex-row justify-center items-center bg-melon hover:bg-melon-hover text-white rounded-md px-4 py-2 cursor-pointer transition-colors duration-300"
+            >
+              <MdPerson className="text-2xl text-neutral-100" />
+              Profiel
+            </Link>
+            <button
+              onClick={handleLogout}
+              title="Uitloggen"
+              className="w-fit flex flex-row justify-center items-center bg-melon hover:bg-melon-hover text-white rounded-md px-4 py-2 cursor-pointer transition-colors duration-300"
+            >
+              <MdLogout className="text-2xl text-neutral-100" /> Uitloggen
+            </button>
+          </div>
         )}
       </div>
       {/* Einde Navbar */}

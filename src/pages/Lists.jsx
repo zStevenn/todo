@@ -67,10 +67,10 @@ export default function Lists() {
                   </td>
                   <td className="flex gap-4 items-center">
                     <Link to={`/lists/${doc.id}`}>
-                      <MdEdit />
+                      <MdEdit className="text-2xl" />
                     </Link>
                     <button onClick={deleteList}>
-                      <MdDelete />
+                      <MdDelete className="text-2xl" />
                     </button>
                   </td>
                 </tr>
