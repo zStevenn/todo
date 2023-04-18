@@ -39,7 +39,7 @@ export default function Add() {
 
   // Handle logic for submitting form
   const handleSubmit = async (e) => {
-    e.preventDefault;
+    e.preventDefault();
 
     // Check if listname is set
     if (!listName) {
