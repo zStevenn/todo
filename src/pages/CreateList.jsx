@@ -3,8 +3,9 @@ import { useState } from 'react';
 import Input from '../components/Input';
 import Alert from '../components/Alert';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db, auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 export default function Add() {
   const addRef = useFadeIn();
@@ -18,6 +19,7 @@ export default function Add() {
   const [popupMessage, setPopupMessage] = useState('');
   const [popupRedir, setPopupRedir] = useState(false);
   const navigate = useNavigate();
+  const [user, loading, error] = useAuthState(auth);
 
   const handleListNameChange = (e) => {
     setListName(e.target.value);
@@ -58,6 +60,7 @@ export default function Add() {
         date: date,
         description: description,
         tags: tag,
+        userUID: user.uid,
       });
       // See if document is created or not
       console.log('Document written with ID: ', newListRef.id);
@@ -87,6 +90,18 @@ export default function Add() {
       console.log(err);
     }
   };
+
+  // if (!user) {
+  //   return <p>Not logged in!</p>;
+  // }
+
+  // if (loading) {
+  //   return <p>User is loading</p>;
+  // }
+
+  // if (error) {
+  //   return <p>Error: {JSON.stringify(error)}</p>;
+  // }
 
   return (
     <>
