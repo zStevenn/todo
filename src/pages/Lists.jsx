@@ -38,19 +38,19 @@ export default function Lists() {
           <tr className="grid grid-cols-3 md:grid-cols-4 place-items-start gap-6">
             <th>Naam</th>
             <th>Datum</th>
-            <th className="hidden md:block">Tags</th>
+            <th className="hidden md:block">Omschrijving</th>
             <th>Acties</th>
           </tr>
         </thead>
         {/* Grid rows */}
         <tbody>
           {error && (
-            <tr className="col-span-3">
+            <tr className="col-span-3 md:col-span-4">
               <td>Foutmelding: {JSON.stringify(error)}</td>
             </tr>
           )}
           {loading && (
-            <tr className="col-span-3">
+            <tr className="col-span-3 md:col-span-4">
               <td>Lijsten laden...</td>
             </tr>
           )}
@@ -64,7 +64,7 @@ export default function Lists() {
                   <td className="truncate text-lg">{doc.data().name}</td>
                   <td className="truncate text-lg">{doc.data().date}</td>
                   <td className="truncate text-lg hidden md:block">
-                    {JSON.stringify(doc.data().tags)}
+                    {doc.data().description}
                   </td>
                   <td className="flex gap-4 items-center">
                     <Link to={`/lists/${doc.id}`}>
