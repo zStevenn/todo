@@ -118,7 +118,7 @@ export default function Navbar() {
         )}
       </nav>
       <div
-        className={`md:hidden text-neutral-100 px-8 py-3 fixed w-screen h-3/5 top-0 left-0 bg-primary z-20 shadow-lg transition-all ease-in duration-500 rounded-br-full flex flex-col gap-16 ${
+        className={`md:hidden text-neutral-100 px-8 py-3 fixed w-screen h-screen top-0 left-0 bg-primary z-20 shadow-lg transition-all ease-in duration-500 rounded-br-full flex flex-col gap-16 ${
           showNav
             ? '-translate-x-full -translate-y-full'
             : 'translate-x-0 translate-y-0 left-none'

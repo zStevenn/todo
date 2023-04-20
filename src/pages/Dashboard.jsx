@@ -1,13 +1,12 @@
-import { MdAdd, MdList, MdKeyboardDoubleArrowRight } from 'react-icons/md';
+import { MdAdd, MdList } from 'react-icons/md';
 import { BiTask } from 'react-icons/bi';
 import { BsGear } from 'react-icons/bs';
 import { auth } from '../firebase';
-import { Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useState } from 'react';
 import StyledLink from '../components/StyledLink';
 import Loading from '../components/Loading';
 import Button from '../components/Button';
+import { Row, Title, QuickButton } from '../components/Dashboard';
 
 export default function Dashboard() {
   const [user, loading] = useAuthState(auth);
@@ -31,7 +30,7 @@ export default function Dashboard() {
   if (user) {
     return (
       <>
-        <div className="grid gap-8 px-6 pt-6 pb-12 text-gray-700">
+        <div className="grid gap-8 px-8 pt-6 pb-12 text-neutral-900 md:max-w-screen-md md:mx-auto">
           <div>
             <div className="flex justify-between">
               <h1 className="text-xl">Hee, {user.email}</h1>
@@ -41,73 +40,45 @@ export default function Dashboard() {
               bekijken!
             </p>
           </div>
+
           {/* Snelmenu */}
           <div className="grid gap-4">
-            <h3 className="text-lg">Snelmenu</h3>
-            <div className="grid grid-cols-4 gap-4">
-              <Link
-                to="/lists/create"
-                title="Creëer lijst"
-                className="p-2 grid place-items-center bg-glaucous"
-              >
-                <MdAdd className="text-5xl text-white" />
-              </Link>
-              <Link
-                to="/lists"
-                title="Bekijk lijsten"
-                className="p-2 grid place-items-center bg-melon"
-              >
-                <MdList className="text-5xl text-white" />
-              </Link>
-              <div className="p-2 grid place-items-center bg-glaucous">
-                <BiTask className="text-5xl text-white" />
-              </div>
-              <div className="p-2 grid place-items-center bg-melon">
-                <BsGear className="text-5xl text-white" />
-              </div>
+            <Title>Snelmenu</Title>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <QuickButton to="/lists/create" title="Creëer lijst">
+                <MdAdd className="text-4xl text-white" />
+              </QuickButton>
+              <QuickButton to="/lists" title="Bekijk lijsten">
+                <MdList className="text-4xl text-white" />
+              </QuickButton>
+              <QuickButton to="/lists" title="Bekijk lijsten">
+                <BiTask className="text-4xl text-white" />
+              </QuickButton>
+              <QuickButton to="/lists" title="Bekijk lijsten">
+                <BsGear className="text-4xl text-white" />
+              </QuickButton>
             </div>
           </div>
-          {/* Eind snelmenu */}
+
+          {/* Openstaande taken */}
           <div className="grid gap-4">
-            <h3 className="text-lg">Openstaande taken voor vandaag</h3>
+            <Title>Openstaande taken voor vandaag</Title>
             <div className="grid gap-4">
-              <div className="flex justify-between bg-melon rounded-md shadow-md px-3 py-2">
-                <p className="text-base text-white">Boodschappen</p>
-                <MdKeyboardDoubleArrowRight className="text-2xl text-white" />
-              </div>
-              <div className="flex justify-between bg-glaucous rounded-md shadow-md px-3 py-2">
-                <p className="text-base text-white">Sporten</p>
-                <MdKeyboardDoubleArrowRight className="text-2xl text-white" />
-              </div>
-              <div className="flex justify-between bg-melon rounded-md shadow-md px-3 py-2">
-                <p className="text-base text-white">Eten</p>
-                <MdKeyboardDoubleArrowRight className="text-2xl text-white" />
-              </div>
-              <div className="flex justify-between bg-glaucous rounded-md shadow-md px-3 py-2">
-                <p className="text-base text-white">Willekeurig item</p>
-                <MdKeyboardDoubleArrowRight className="text-2xl text-white" />
-              </div>
+              <Row>Boodschappen</Row>
+              <Row>Sporten</Row>
+              <Row>Eten</Row>
+              <Row>Willekeurig</Row>
             </div>
           </div>
+
+          {/* Openstaande lijsten */}
           <div className="grid gap-4">
-            <h3 className="text-lg">Openstaande lijsten</h3>
+            <Title>Openstaande lijsten</Title>
             <div className="grid gap-4">
-              <div className="flex justify-between bg-melon rounded-md shadow-md px-3 py-2">
-                <p className="text-base text-white">Boodschappen</p>
-                <MdKeyboardDoubleArrowRight className="text-2xl text-white" />
-              </div>
-              <div className="flex justify-between bg-glaucous rounded-md shadow-md px-3 py-2">
-                <p className="text-base text-white">Sporten</p>
-                <MdKeyboardDoubleArrowRight className="text-2xl text-white" />
-              </div>
-              <div className="flex justify-between bg-melon rounded-md shadow-md px-3 py-2">
-                <p className="text-base text-white">Eten</p>
-                <MdKeyboardDoubleArrowRight className="text-2xl text-white" />
-              </div>
-              <div className="flex justify-between bg-glaucous rounded-md shadow-md px-3 py-2">
-                <p className="text-base text-white">Willekeurig item</p>
-                <MdKeyboardDoubleArrowRight className="text-2xl text-white" />
-              </div>
+              <Row>Lijst 1</Row>
+              <Row>Lijst 2</Row>
+              <Row>Lijst 3</Row>
+              <Row>Lijst 4</Row>
             </div>
           </div>
         </div>

@@ -1,30 +1,44 @@
-import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import Input from '../components/Input';
 import Alert from '../components/Alert';
 import { db, auth } from '../firebase';
 import { getFirestore, doc } from 'firebase/firestore';
-import { useDocument } from 'react-firebase-hooks/firestore';
-import { useNavigate } from 'react-router-dom';
+import { useDocumentOnce } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Loading from '../components/Loading';
+import { MdKeyboardDoubleArrowLeft } from 'react-icons/md';
 
 export default function EditList() {
+  // Hold values for displaying list information
+  const [user, loading, error] = useAuthState(auth);
+  const { listId } = useParams();
+  const [value, docLoading, docError] = useDocumentOnce(
+    doc(db, 'lists', listId)
+  );
+
   // Hold values for form input
   const [listName, setListName] = useState('');
   const [date, setDate] = useState('');
   const [description, setDescription] = useState('');
   const [tag, setTag] = useState('');
+
+  useEffect(() => {
+    if (value) {
+      setListName(value.data().name || '');
+      setDate(value.data().date || '');
+      setDescription(value.data().description || '');
+      setTag(value.data().tag || '');
+    }
+  }, [value]);
+
   // Hold values for popup
   const [popup, setPopup] = useState(false);
   const [popupTitle, setPopupTitle] = useState('');
   const [popupStatus, setPopupStatus] = useState('');
   const [popupMessage, setPopupMessage] = useState('');
   const [popupRedir, setPopupRedir] = useState(false);
-  // Hold values for displaying list information
-  const [user, loading, error] = useAuthState(auth);
-  const { listId } = useParams();
-  const [value, docLoading, docError] = useDocument(doc(db, 'lists', listId));
+
   // Navigate
   const navigate = useNavigate();
 
@@ -67,11 +81,15 @@ export default function EditList() {
             redir={popupRedir}
           />
         )}
-        <div>{listId}</div>
-        <div className="px-8 shadow-[15px_-1px_5px_-5px_rgba(0,0,0,0.3)] flex flex-col flex-start gap-8 h-[80vh]">
-          <h1 className="text-2xl font-semibold text-neutral-900 pt-8">
-            Wijzig lijst
-          </h1>
+        <div className="px-8 pt-8 flex flex-col flex-start gap-8">
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-semibold text-neutral-900">
+              Wijzig lijst
+            </h1>
+            <button onClick={() => navigate('/lists')}>
+              <MdKeyboardDoubleArrowLeft className="text-3xl" />
+            </button>
+          </div>
           <div className="grid grid-cols-1 gap-2">
             <Input
               type="text"
