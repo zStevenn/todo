@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Input from '../components/Input';
 import Alert from '../components/Alert';
 import { db, auth } from '../firebase';
-import { getFirestore, doc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { useDocumentOnce } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Loading from '../components/Loading';
@@ -16,19 +16,17 @@ export default function EditList() {
   const [value, docLoading, docError] = useDocumentOnce(
     doc(db, 'lists', listId)
   );
-
+  const docRef = doc(db, 'lists', listId);
   // Hold values for form input
   const [listName, setListName] = useState('');
   const [date, setDate] = useState('');
   const [description, setDescription] = useState('');
-  const [tag, setTag] = useState('');
 
   useEffect(() => {
     if (value) {
       setListName(value.data().name || '');
       setDate(value.data().date || '');
       setDescription(value.data().description || '');
-      setTag(value.data().tag || '');
     }
   }, [value]);
 
@@ -54,8 +52,39 @@ export default function EditList() {
     setDescription(e.target.value);
   };
 
-  const handleTagChange = (e) => {
-    setTag(e.target.value);
+  // Execute logic when submitting list
+  const handleSubmit = async () => {
+    // Display error popup if listName is empty
+    if (!listName) {
+      setPopup(true);
+      setPopupTitle('Oeps... naam vergeten!');
+      setPopupStatus('danger');
+      setPopupMessage('Je moet een lijst naam invullen.');
+      setTimeout(() => {
+        setPopup(false);
+      }, 5000);
+      return false;
+    }
+
+    const updateList = await updateDoc(docRef, {
+      name: listName,
+      date: date,
+      description: description,
+    });
+
+    console.log(updateList);
+
+    if (value) {
+      setPopup(true);
+      setPopupTitle('Lijst is gewijzigd.');
+      setPopupStatus('success');
+      setPopupMessage('Je lijst is aangepast!');
+      setPopupRedir(true);
+      setTimeout(() => {
+        setPopup(false);
+        navigate('/lists');
+      }, 5000);
+    }
   };
 
   if (!user) {
@@ -98,7 +127,7 @@ export default function EditList() {
               placeholder="Lijstnaam"
             />
             <Input
-              type="text"
+              type="date"
               value={date}
               onChange={handleDateChange}
               placeholder="Datum (Optioneel)"
@@ -109,17 +138,11 @@ export default function EditList() {
               onChange={handleDescriptionChange}
               placeholder="Omschrijving (Optioneel)"
             />
-            <Input
-              type="text"
-              value={tag}
-              onChange={handleTagChange}
-              placeholder="Tags (Optioneel)"
-            />
           </div>
           <button
             className="inline-flex items-center justify-center rounded-md px-4 py-2 cursor-pointer transition-colors duration-300 w-full bg-primary hover:bg-primary-hover text-white"
             type="submit"
-            // onClick={handleSubmit}
+            onClick={handleSubmit}
           >
             Maak nieuwe lijst
           </button>
