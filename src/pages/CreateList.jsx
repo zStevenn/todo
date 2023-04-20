@@ -1,4 +1,3 @@
-import useFadeIn from '../hooks/useFadeIn';
 import { useState } from 'react';
 import Input from '../components/Input';
 import Alert from '../components/Alert';
@@ -6,13 +5,12 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { MdKeyboardDoubleArrowLeft } from 'react-icons/md';
 
 export default function Add() {
-  const addRef = useFadeIn();
   const [listName, setListName] = useState('');
   const [date, setDate] = useState('');
   const [description, setDescription] = useState('');
-  const [tag, setTag] = useState('');
   const [popup, setPopup] = useState(false);
   const [popupTitle, setPopupTitle] = useState('');
   const [popupStatus, setPopupStatus] = useState('');
@@ -31,10 +29,6 @@ export default function Add() {
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
-  };
-
-  const handleTagChange = (e) => {
-    setTag(e.target.value);
   };
 
   // Handle logic for submitting form
@@ -59,7 +53,6 @@ export default function Add() {
         name: listName,
         date: date,
         description: description,
-        tags: tag,
         userUID: user.uid,
       });
       // See if document is created or not
@@ -91,17 +84,17 @@ export default function Add() {
     }
   };
 
-  // if (!user) {
-  //   return <p>Not logged in!</p>;
-  // }
+  if (!user) {
+    return <p>Not logged in!</p>;
+  }
 
-  // if (loading) {
-  //   return <p>User is loading</p>;
-  // }
+  if (loading) {
+    return <p>User is loading</p>;
+  }
 
-  // if (error) {
-  //   return <p>Error: {JSON.stringify(error)}</p>;
-  // }
+  if (error) {
+    return <p>Error: {JSON.stringify(error)}</p>;
+  }
 
   return (
     <>
@@ -113,13 +106,15 @@ export default function Add() {
           redir={popupRedir}
         />
       )}
-      <div
-        ref={addRef}
-        className="px-8 transition-all duration-1000 opacity-0 -translate-x-32 shadow-[15px_-1px_5px_-5px_rgba(0,0,0,0.3)] flex flex-col flex-start gap-8 h-[80vh]"
-      >
-        <h1 className="text-2xl font-semibold text-neutral-900 pt-8">
-          Maak nieuwe lijst
-        </h1>
+      <div className="px-8 flex flex-col flex-start gap-8 md:max-w-screen-md md:mx-auto">
+        <div className="flex flex-row justify-between items-center">
+          <h1 className="text-2xl font-semibold text-neutral-900 pt-8">
+            Maak nieuwe lijst
+          </h1>
+          <button onClick={() => navigate('/lists')}>
+            <MdKeyboardDoubleArrowLeft className="text-3xl" />
+          </button>
+        </div>
         <div className="grid grid-cols-1 gap-2">
           <Input
             type="text"
@@ -128,7 +123,7 @@ export default function Add() {
             placeholder="Lijstnaam"
           />
           <Input
-            type="text"
+            type="date"
             value={date}
             onChange={handleDateChange}
             placeholder="Datum (Optioneel)"
@@ -138,12 +133,6 @@ export default function Add() {
             value={description}
             onChange={handleDescriptionChange}
             placeholder="Omschrijving (Optioneel)"
-          />
-          <Input
-            type="text"
-            value={tag}
-            onChange={handleTagChange}
-            placeholder="Tags (Optioneel)"
           />
         </div>
         <button

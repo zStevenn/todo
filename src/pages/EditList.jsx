@@ -110,7 +110,7 @@ export default function EditList() {
             redir={popupRedir}
           />
         )}
-        <div className="px-8 pt-8 flex flex-col flex-start gap-8">
+        <div className="px-8 pt-8 flex flex-col flex-start gap-8 md:max-w-screen-md md:mx-auto">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-semibold text-neutral-900">
               Wijzig lijst
