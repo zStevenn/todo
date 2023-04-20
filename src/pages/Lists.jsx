@@ -1,6 +1,6 @@
 import Button from '../components/Button';
 import { MdEdit, MdDelete } from 'react-icons/md';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { collection, query, where } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
@@ -9,7 +9,6 @@ import { Title } from '../components/Dashboard';
 
 export default function Lists() {
   const [user, userLoading, userError] = useAuthState(auth);
-  // const navigate = useNavigate();
 
   const deleteList = () => {
     console.log('delete list');
