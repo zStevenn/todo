@@ -22,13 +22,15 @@ export default function Login() {
   const [popupTitle, setPopupTitle] = useState('');
   const [popupStatus, setPopupStatus] = useState('');
   const [popupMessage, setPopupMessage] = useState('');
+  const [popupRedir, setPopupRedir] = useState();
 
   useEffect(() => {
     if (user) {
-      setPopupTitle('Welkom terug, vriend!');
+      setPopupTitle('Welcome back!');
       setPopupStatus('success');
-      setPopupMessage('Je bent succesvol ingelogd.');
+      setPopupMessage('You have signed in successfully.');
       setPopup(true);
+      setPopupRedir(true);
       setTimeout(() => {
         setPopup(false);
         navigate('/dashboard');
@@ -63,14 +65,19 @@ export default function Login() {
   return (
     <>
       {popup && (
-        <Alert title={popupTitle} status={popupStatus} message={popupMessage} />
+        <Alert
+          title={popupTitle}
+          status={popupStatus}
+          message={popupMessage}
+          redir={popupRedir}
+        />
       )}
       {loading && <Loading />}
       <form
         className="grid place-items-center gap-6 mt-16 px-6"
         onSubmit={handleFormSubmit}
       >
-        <h1 className="text-xl font-semibold">Log in</h1>
+        <h1 className="text-xl font-semibold">Sign in</h1>
         <Input
           type="text"
           value={email}
@@ -89,7 +96,7 @@ export default function Login() {
         {error && <p className="text-secondary">{error.message}</p>}
         <FormButton
           variant="primary"
-          text="Inloggen"
+          text="Sign in"
           type="submit"
           icon={<MdLogin />}
         />
@@ -102,15 +109,15 @@ export default function Login() {
         </div>
         <Button
           variant="secondary"
-          text="Inloggen met Google"
+          text="Sign in with Google"
           icon={<FaGoogle />}
         />
         <div className="flex flex-col gap-1">
           <StyledLink className="text-sm" to="/">
-            Wachtwoord vergeten?
+            Forgot password?
           </StyledLink>
           <StyledLink className="text-sm" to="/register">
-            Geen account? Registreer hier
+            Don't have an account? Register here
           </StyledLink>
         </div>
       </div>

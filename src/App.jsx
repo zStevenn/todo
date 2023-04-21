@@ -12,6 +12,7 @@ const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Lists = lazy(() => import('./pages/Lists'));
 const CreateList = lazy(() => import('./pages/CreateList'));
 const EditList = lazy(() => import('./pages/EditList'));
+const ViewList = lazy(() => import('./pages/ViewList'));
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
               <Route exact path="/dashboard" element={<Dashboard />} />
               <Route exact path="/login" element={<Login />} />
               <Route exact path="/lists" element={<Lists />} />
-              <Route exact path="/lists/:listId" element={<EditList />} />
+              <Route exact path="/lists/:listId" element={<ViewList />} />
+              <Route exact path="/lists/edit/:listId" element={<EditList />} />
               <Route exact path="/lists/create" element={<CreateList />} />
               <Route exact path="/terms-of-service" element={<h1>TOS</h1>} />
               <Route

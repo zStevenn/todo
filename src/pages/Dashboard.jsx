@@ -17,10 +17,10 @@ export default function Dashboard() {
       <>
         {loading && <Loading />}
         <div className="flex flex-col mt-8 px-8 gap-8 items-center text-center">
-          <h1>Je moet eerst inloggen om je eigen dashboard te bekijken.</h1>
+          <h1>You must sign in to view this page.</h1>
           <Button text="Naar inloggen" to="/login" />
           <StyledLink className="text-sm" to="/register">
-            Geen account? Registreer hier
+            Don't have an account yet? Sign up here
           </StyledLink>
         </div>
       </>
@@ -33,17 +33,16 @@ export default function Dashboard() {
         <div className="grid gap-8 px-8 pt-6 pb-12 text-neutral-900 md:max-w-screen-md md:mx-auto">
           <div>
             <div className="flex justify-between">
-              <h1 className="text-xl">Hee, {user.email}</h1>
+              <h1 className="text-xl">Hey, {user.email} !</h1>
             </div>
             <p className="text-base mt-2">
-              In één oogopslag kan je je lijsten, taken en nog veel meer
-              bekijken!
+              View your tasks, lists and more all in one place!
             </p>
           </div>
 
           {/* Snelmenu */}
           <div className="grid gap-4">
-            <Title>Snelmenu</Title>
+            <Title>Quick Menu</Title>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <QuickButton to="/lists/create" title="Creëer lijst">
                 <MdAdd className="text-4xl text-white" />
@@ -62,23 +61,23 @@ export default function Dashboard() {
 
           {/* Openstaande taken */}
           <div className="grid gap-4">
-            <Title>Openstaande taken voor vandaag</Title>
+            <Title>Open tasks</Title>
             <div className="grid gap-4">
-              <Row>Boodschappen</Row>
-              <Row>Sporten</Row>
-              <Row>Eten</Row>
-              <Row>Willekeurig</Row>
+              <Row>Groceries</Row>
+              <Row>Gym</Row>
+              <Row>Dinner</Row>
+              <Row>Free time</Row>
             </div>
           </div>
 
           {/* Openstaande lijsten */}
           <div className="grid gap-4">
-            <Title>Openstaande lijsten</Title>
+            <Title>Open Lists</Title>
             <div className="grid gap-4">
-              <Row>Lijst 1</Row>
-              <Row>Lijst 2</Row>
-              <Row>Lijst 3</Row>
-              <Row>Lijst 4</Row>
+              <Row>List 1</Row>
+              <Row>List 2</Row>
+              <Row>List 3</Row>
+              <Row>List 4</Row>
             </div>
           </div>
         </div>

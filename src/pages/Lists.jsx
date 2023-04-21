@@ -1,5 +1,5 @@
 import Button from '../components/Button';
-import { MdEdit, MdDelete } from 'react-icons/md';
+import { MdEdit, MdDelete, MdViewList } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { collection, query, where } from 'firebase/firestore';
 import { db, auth } from '../firebase';
@@ -26,8 +26,8 @@ export default function Lists() {
     <div className="px-8 md:max-w-screen-md md:mx-auto">
       {/* Header + Create button */}
       <div className="flex flex-row flex-nowrap justify-between items-center py-3">
-        <Title>Lijstoverzicht</Title>
-        <Button text="Maak lijst" variant="melon" to="/lists/create" />
+        <Title>List overview</Title>
+        <Button text="Create list" variant="melon" to="/lists/create" />
       </div>
 
       {/* List grid */}
@@ -35,22 +35,22 @@ export default function Lists() {
         {/* Grid Header */}
         <thead>
           <tr className="grid grid-cols-3 md:grid-cols-4 place-items-start gap-6">
-            <th>Naam</th>
-            <th>Datum</th>
-            <th className="hidden md:block">Omschrijving</th>
-            <th>Acties</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th className="hidden md:block">Description</th>
+            <th>Actions</th>
           </tr>
         </thead>
         {/* Grid rows */}
         <tbody>
           {error && (
             <tr className="col-span-3 md:col-span-4">
-              <td>Foutmelding: {JSON.stringify(error)}</td>
+              <td>Error: {JSON.stringify(error)}</td>
             </tr>
           )}
           {loading && (
             <tr className="col-span-3 md:col-span-4">
-              <td>Lijsten laden...</td>
+              <td>Loading data...</td>
             </tr>
           )}
           {value && (
@@ -58,7 +58,7 @@ export default function Lists() {
               {value.docs.map((doc) => (
                 <tr
                   key={doc.id}
-                  className="grid grid-cols-3 md:grid-cols-4 py-3 gap-6 border-b-2"
+                  className="grid grid-cols-3 md:grid-cols-4 py-3 gap-6 border-b-2 "
                 >
                   <td className="truncate text-lg">{doc.data().name}</td>
                   <td className="truncate text-lg">{doc.data().date}</td>
@@ -67,10 +67,13 @@ export default function Lists() {
                   </td>
                   <td className="flex gap-4 items-center">
                     <Link to={`/lists/${doc.id}`}>
-                      <MdEdit className="text-3xl" />
+                      <MdViewList className="text-xl" />
+                    </Link>
+                    <Link to={`/lists/edit/${doc.id}`}>
+                      <MdEdit className="text-xl" />
                     </Link>
                     <button onClick={deleteList}>
-                      <MdDelete className="text-3xl" />
+                      <MdDelete className="text-xl" />
                     </button>
                   </td>
                 </tr>
