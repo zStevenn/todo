@@ -84,8 +84,8 @@ export default function Step1({
         </div>
         <div>
           <p className="text-xs">
-            Door te registreren, ga je akkoord met onze{' '}
-            <StyledLink to="/terms-of-service">Terms of Service</StyledLink> en{' '}
+            By registering your account, you agree with our{' '}
+            <StyledLink to="/terms-of-service">Terms of Service</StyledLink> and{' '}
             <StyledLink to="/privacy">Privacy Policy</StyledLink>.
           </p>
         </div>
