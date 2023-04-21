@@ -19,7 +19,7 @@ export default function Navbar() {
   // Default nav items
   const navElements = [
     { id: 1, name: 'Home', href: '/' },
-    { id: 2, name: 'Registreren', href: '/register' },
+    { id: 2, name: 'Register', href: '/register' },
     { id: 3, name: 'Log in', href: '/login' },
   ];
 
@@ -39,9 +39,9 @@ export default function Navbar() {
 
     try {
       await logout();
-      setPopupTitle('Tot ziens!');
+      setPopupTitle('Byeeee!');
       setPopupStatus('success');
-      setPopupMessage('Je bent succesvol uitgelogd.');
+      setPopupMessage('You have been successfully logged out.');
       setPopup(true);
       setShowNav(!showNav);
       setTimeout(() => {
@@ -104,12 +104,12 @@ export default function Navbar() {
         </ul>
         {user && (
           <div className="flex gap-4">
-            <Link to="/dashboard" title="Profiel" className="hidden md:block">
+            <Link to="/profile" title="Profile" className="hidden md:block">
               <MdPerson className="text-3xl text-neutral-100" />
             </Link>
             <button
               onClick={handleLogout}
-              title="Uitloggen"
+              title="Log out"
               className="hidden md:block"
             >
               <MdLogout className="text-3xl text-neutral-100" />
@@ -163,19 +163,19 @@ export default function Navbar() {
         {user && (
           <div className="flex gap-4">
             <Link
-              to="/profiel"
-              title="Uitloggen"
+              to="/profile"
+              title="Profile"
               className="w-fit flex flex-row justify-center items-center bg-melon hover:bg-melon-hover text-white rounded-md px-4 py-2 cursor-pointer transition-colors duration-300"
             >
               <MdPerson className="text-2xl text-neutral-100" />
-              Profiel
+              Profile
             </Link>
             <button
               onClick={handleLogout}
-              title="Uitloggen"
+              title="Logout"
               className="w-fit flex flex-row justify-center items-center bg-melon hover:bg-melon-hover text-white rounded-md px-4 py-2 cursor-pointer transition-colors duration-300"
             >
-              <MdLogout className="text-2xl text-neutral-100" /> Uitloggen
+              <MdLogout className="text-2xl text-neutral-100" /> Log out
             </button>
           </div>
         )}
